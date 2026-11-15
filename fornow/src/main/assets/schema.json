@@ -1,0 +1,73 @@
+{
+  "packageName": "ai.pleos.fornow",
+  "appDescription": "Temporarily adjusts supported vehicle comfort settings and conditionally restores them while preserving manual changes.",
+  "invokeWord": "잠깐만",
+  "version": "0.3.0",
+  "actionCalls": [
+    {
+      "type": "function",
+      "function": {
+        "component": "activity",
+        "name": "FORNOW_TEMPORARY_SETTING",
+        "description": "Temporarily applies one requested comfort setting for a specified duration and restores it unless manually changed.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "control": {
+              "type": "string",
+              "description": "fan lowers airflow, seatHeat enables low driver-seat heating, seatCool enables low driver-seat ventilation, wheel enables low steering-wheel heating, and ambient dims lighting.",
+              "enum": [
+                "fan",
+                "seatHeat",
+                "seatCool",
+                "wheel",
+                "ambient"
+              ]
+            },
+            "durationSeconds": {
+              "type": "number",
+              "description": "Duration in seconds, limited to 60, 180, or 300."
+            }
+          },
+          "required": [
+            "control",
+            "durationSeconds"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "component": "activity",
+        "name": "FORNOW_RESTORE_SETTINGS",
+        "description": "Ends the current temporary or automatic session and conditionally restores settings that the user has not changed.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "component": "activity",
+        "name": "FORNOW_AUTOMATIC_MODE",
+        "description": "Enables call and drive-through detection while parked, or disables it and restores unchanged settings.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Whether automatic detection should be enabled."
+            }
+          },
+          "required": [
+            "enabled"
+          ]
+        }
+      }
+    }
+  ]
+}
